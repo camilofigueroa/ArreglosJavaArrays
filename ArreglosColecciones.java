@@ -3,6 +3,11 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *
+ * Material de consulta que ayudó al desarrollo del ejercicio.
+ * https://www.youtube.com/watch?v=Z4k582CoCvs
+ * http://stackoverflow.com/questions/5364278/creating-an-array-of-objects-in-java
+ * http://jarroba.com/arraylist-en-java-ejemplos/
  */
 
 //El paquete viene por defecto y depende de la organización de las carpetas.
@@ -21,11 +26,11 @@ import java.util.ArrayList; // Esta es la clase para las colecciones.
  * @author SATELLITE
  */
 public class ArreglosColecciones {
-    
-    public static int gTotalAtletas = 10;
-    public static Atleta gArregloAtletas[] = new Atleta[ gTotalAtletas ];
+ 
     public static Menu gMenu = new Menu();
     private static int gMaxIndiceAtleta = 0;
+    public static ArrayList<Atleta> gListaAtletas = new ArrayList<Atleta>();
+    public static Atleta gAtleta;
     
     /**
      * @param args the command line arguments
@@ -34,23 +39,20 @@ public class ArreglosColecciones {
         
         int opcionEscogida = 0;
         
-        //gArregloAtletas = new Atleta[ 10 ]; //creamos el vector de 10 atletas.
-        
-        //Se crean los atletas.
-        for( int i=0; i<10; i++ )
-        gArregloAtletas[i] = new Atleta();
-        
         while( opcionEscogida != 5 )
         {
             switch( opcionEscogida )
             {
                 case 1: //Registrar atleta.
-                        solicitarDatosAtleta( gMaxIndiceAtleta );
-                        if( gMaxIndiceAtleta < gTotalAtletas - 1 ) gMaxIndiceAtleta ++;
+                        gAtleta = new Atleta(); //Se crea una nueva clase, las otras están en el vector. 
+                        gAtleta.registrarAtleta(); //Se piden los datos del atleta antes de almacenarlo en el arrayList. 
+                        gListaAtletas.add( gAtleta ); //Agrego el atleta a la lista. 
+                        gMaxIndiceAtleta = gListaAtletas.size(); //Pido el tamaño de la lista, supe-importante.
+                        echo( "Número de atletas hasta le momento: " + gMaxIndiceAtleta );
                 break;
 
                 case 2: //Datos del campeón.
-                        System.out.println( "Los datos del campeón son: " + retornarDatosCampeon() );
+                        echo( "Los datos del campeón son: " + retornarDatosCampeon() );
                 break;
 
                 case 3: //Atletas por país.
@@ -58,7 +60,7 @@ public class ArreglosColecciones {
                 break;
 
                 case 4: //Tiempo promedio de todos los atletas.
-                        System.out.println( "El tiempo promedio de los " + gMaxIndiceAtleta + " atleta(s) es: " + retornarPromedioAtletas() );
+                        echo( "El tiempo promedio de los " + gMaxIndiceAtleta + " atleta(s) es: " + retornarPromedioAtletas() );
                 break;
 
                 default:
@@ -68,14 +70,6 @@ public class ArreglosColecciones {
             //Aquí se muestra el menú para seleccionar la opción.
             opcionEscogida = gMenu.mostrarMenu();
         }              
-    }
-    
-    /**
-    * Esto solicita los datos de un atleta específico.
-    */
-    public static void solicitarDatosAtleta( int indice )
-    {
-        gArregloAtletas[ indice ].registrarAtleta();
     }
     
     /**
@@ -91,10 +85,9 @@ public class ArreglosColecciones {
         
         for( i = 0; i < gMaxIndiceAtleta; i ++ )
         {
-            System.out.println( "Buscando en " + gArregloAtletas[ i ].gNacionalidad );
-            
-            if( pais.matches( gArregloAtletas[ i ].gNacionalidad ) == true )
-            System.out.println( gArregloAtletas[ i ].retornarDatosAtleta() );
+            //echo( "Buscando en " + gListaAtletas.get( i ).gNacionalidad ); 
+            if( pais.matches( gListaAtletas.get( i ).gNacionalidad ) == true )
+            echo( gListaAtletas.get( i ).retornarDatosAtleta() );
         }        
     }
 
@@ -110,7 +103,7 @@ public class ArreglosColecciones {
 
         for( i = 0; i < gMaxIndiceAtleta; i ++ )
         {
-            suma += gArregloAtletas[ i ].retornarTiempoAtleta();
+            suma += gListaAtletas.get( i ).retornarTiempoAtleta();
         }
 
         return suma / ( gMaxIndiceAtleta );
@@ -126,21 +119,29 @@ public class ArreglosColecciones {
         int i = 0;
         int indiceMejor = 0;
 
-        //No se va a busvcar el mejor si por lo menos no hay dos atletas.
+        //No se va a buscar el mejor si por lo menos no hay dos atletas.
         if( gMaxIndiceAtleta > 1 )
         {
             for( i = 0; i < gMaxIndiceAtleta; i ++ )
             {
-                if( gArregloAtletas[ i ].retornarTiempoAtleta() > gArregloAtletas[ indiceMejor ].retornarTiempoAtleta() )
+                //El atleta con el menor tiempo es el mejor.
+                if( gListaAtletas.get( i ).retornarTiempoAtleta() < gListaAtletas.get( indiceMejor ).retornarTiempoAtleta() )
                 {
                     indiceMejor = i;
                 }
                 
-                System.out.println( indiceMejor + " Mejor hasta el momento: " + gArregloAtletas[ indiceMejor ].retornarDatosAtleta() );
+                //echo( indiceMejor + " Mejor hasta el momento: " + gArregloAtletas[ indiceMejor ].retornarDatosAtleta() );
             }
         }
 
-        return gArregloAtletas[ indiceMejor ].retornarDatosAtleta();
+        return gListaAtletas.get( indiceMejor ).retornarDatosAtleta();
     }
- 
+    
+    /**
+     * Solo para simular la función echo del php.
+     */
+    public static void echo( String cad )
+    {
+        System.out.println( cad );
+    }
 }
