@@ -20,15 +20,6 @@ public class Menu {
 
     //Aquí se construye la cadena de carateres del menú.
     private static String gTextoMenu = " 1. Registrar Atleta. \n 2. Datos del campeón. \n 3. Atletas por pais. \n 4. Tiempo promedio de los atletas. \n 5. Salir. " ;
-       
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here        
-        
-    }
     
     /**
      * Este método muestra el menú 
