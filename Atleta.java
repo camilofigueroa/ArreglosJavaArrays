@@ -1,12 +1,16 @@
 /*
+ * Autor: Camilo Figueroa ( Crivera ) Agosto de 2016
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  * https://www.youtube.com/watch?v=Z4k582CoCvs
+ * http://stackoverflow.com/questions/5364278/creating-an-array-of-objects-in-java
  */
 
 //El paquete viene por defecto y depende de la organización de las carpetas.
 package arregloscolecciones;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +20,7 @@ public class Atleta {
 
     //Estos datos son pedidos en el ejercicio.
     private String gNombre;
-    private String gNacionalidad;
+    public String gNacionalidad;
     private double gTiempoAtleta;
         
     public void Atleta()
@@ -27,20 +31,31 @@ public class Atleta {
     }
     
     /**
-     * Esta es la función o método que entra los datos a la clase del atleta.
-     * 
+     * Se solicitan los datos del atleta mediante este método.
      */
-    /*public void solicitarDatos()
+    public void registrarAtleta()
     {
-        JOptionPane.showMessageDialog(null, "por favor ingrese el nombre del atleta.");
-        JOptionPane.showMessageDialog(null, "por favor ingrese el país del atleta.");
-        JOptionPane.showMessageDialog(null, "por favor ingrese el tiempo del atleta.");
-        //this.imprimir();
-    }*/
-    
-    public void imprimir()
+        gNombre = JOptionPane.showInputDialog(null,"Digite el nombre del atleta: ");
+        gNacionalidad = JOptionPane.showInputDialog(null,"Digite la nacionalidad: ");
+        gTiempoAtleta = Double.parseDouble(JOptionPane.showInputDialog(null,"Digite el tiempo: "));
+    }
+
+    /**
+    * Retorna los datos del atleta.
+    * @return       texto       el nombre del atleta.
+    */
+    public String retornarDatosAtleta()
     {
-        System.out.println( "A ver" );
+        return gNombre + " " + gNacionalidad + " " + gTiempoAtleta;
+    }
+
+    /**
+    * Retorna tiempo del atleta.
+    * @return       número       el tiempo del atleta.
+    */
+    public double retornarTiempoAtleta()
+    {
+        return gTiempoAtleta;
     }
     
 }
