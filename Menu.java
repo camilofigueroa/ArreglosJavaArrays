@@ -18,9 +18,11 @@ import javax.swing.JOptionPane;
  */
 public class Menu {
 
+    public static Mensajes gMensajes = new Mensajes();
+
     //Aquí se construye la cadena de carateres del menú.
-    private static String gTextoMenu = " 1. Registrar Atleta. \n 2. Datos del campeón. \n 3. Atletas por pais. \n 4. Tiempo promedio de los atletas. \n 5. Salir. " ;
-    
+    public static String gIdioma = "espa"; //No hay que modificar, se propaga desde la otra clase.
+
     /**
      * Este método muestra el menú 
      * @return          número          la opción del menú que el usuario ha escogido.
@@ -30,7 +32,7 @@ public class Menu {
         int respuesta = 0;
         
         //Muestra un mensaje de texto con botón de aceptar en pantalla.
-        respuesta = Integer.parseInt(JOptionPane.showInputDialog(null,gTextoMenu));
+        respuesta = Integer.parseInt(JOptionPane.showInputDialog(null,gMensajes.mostrarMensaje( gIdioma, 6 )));
         
         return respuesta;
     }

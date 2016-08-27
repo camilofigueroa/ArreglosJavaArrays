@@ -28,9 +28,11 @@ import java.util.ArrayList; // Esta es la clase para las colecciones.
 public class ArreglosColecciones {
  
     public static Menu gMenu = new Menu();
+    public static Mensajes gMensajes = new Mensajes();
     private static int gMaxIndiceAtleta = 0;
     public static ArrayList<Atleta> gListaAtletas = new ArrayList<Atleta>();
     public static Atleta gAtleta;
+    public static String gIdioma = "";
     
     /**
      * @param args the command line arguments
@@ -39,20 +41,29 @@ public class ArreglosColecciones {
         
         int opcionEscogida = 0;
         
+        gIdioma = JOptionPane.showInputDialog(null, "Ingrese idioma 'espa' o 'engl' - write language 'espa' or 'engl'" );
+        
+        gMenu.gIdioma = gIdioma; //Esto propaga el idioma también al menú.
+        gMenu.gMensajes.asignarMensajes(); //También se puede llamar a una función de una clase dentro de otra.
+        gMensajes.asignarMensajes(); //Se cargan todos los mensajes para esta clase.
+        echo( gMensajes.mostrarMensaje( gIdioma, 0 ) ); //Se muestra el primer mensaje de todos. Comprueba el idioma.
+
         while( opcionEscogida != 5 )
         {
             switch( opcionEscogida )
             {
                 case 1: //Registrar atleta.
                         gAtleta = new Atleta(); //Se crea una nueva clase, las otras están en el vector. 
+                        gAtleta.gIdioma = gIdioma;
+                        gAtleta.gMensajes.asignarMensajes();
                         gAtleta.registrarAtleta(); //Se piden los datos del atleta antes de almacenarlo en el arrayList. 
                         gListaAtletas.add( gAtleta ); //Agrego el atleta a la lista. 
                         gMaxIndiceAtleta = gListaAtletas.size(); //Pido el tamaño de la lista, supe-importante.
-                        echo( "Número de atletas hasta le momento: " + gMaxIndiceAtleta );
+                        echo( gMensajes.mostrarMensaje( gIdioma, 1 ) + gMaxIndiceAtleta );
                 break;
 
                 case 2: //Datos del campeón.
-                        echo( "Los datos del campeón son: " + retornarDatosCampeon() );
+                        echo( gMensajes.mostrarMensaje( gIdioma, 2 ) + retornarDatosCampeon() );
                 break;
 
                 case 3: //Atletas por país.
@@ -60,7 +71,7 @@ public class ArreglosColecciones {
                 break;
 
                 case 4: //Tiempo promedio de todos los atletas.
-                        echo( "El tiempo promedio de los " + gMaxIndiceAtleta + " atleta(s) es: " + retornarPromedioAtletas() );
+                        echo( gMensajes.mostrarMensaje( gIdioma, 3 ) + gMaxIndiceAtleta + gMensajes.mostrarMensaje( gIdioma, 4 ) + retornarPromedioAtletas() );
                 break;
 
                 default:
@@ -80,7 +91,7 @@ public class ArreglosColecciones {
         String pais = "";
         int i = 0;
         
-        pais = JOptionPane.showInputDialog(null, "Por favor ingrese el pais para buscar sus atletas.");
+        pais = JOptionPane.showInputDialog(null, gMensajes.mostrarMensaje( gIdioma, 5 ) );
         //System.out.println( "El pais a buscar será " + pais );
         
         for( i = 0; i < gMaxIndiceAtleta; i ++ )

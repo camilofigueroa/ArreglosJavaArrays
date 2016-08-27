@@ -18,16 +18,21 @@ import javax.swing.JOptionPane;
  */
 public class Atleta {
 
+    public static Mensajes gMensajes = new Mensajes();
+
     //Estos datos son pedidos en el ejercicio.
     private String gNombre;
     public String gNacionalidad;
     private double gTiempoAtleta;
+    public String gIdioma = new String();
         
     public void Atleta()
     {
         gNombre = "";
         gNacionalidad = "";
         gTiempoAtleta = 0;
+        gIdioma = "espa";
+        //gMensajes.asignarMensajes(); //Debería funcionar el cargue de mensajes pero no es así.
     }
     
     /**
@@ -35,9 +40,9 @@ public class Atleta {
      */
     public void registrarAtleta()
     {
-        gNombre = JOptionPane.showInputDialog(null,"Digite el nombre del atleta: ");
-        gNacionalidad = JOptionPane.showInputDialog(null,"Digite la nacionalidad: ");
-        gTiempoAtleta = Double.parseDouble(JOptionPane.showInputDialog(null,"Digite el tiempo: "));
+        gNombre = JOptionPane.showInputDialog(null,gMensajes.mostrarMensaje( gIdioma, 7 ));
+        gNacionalidad = JOptionPane.showInputDialog(null,gMensajes.mostrarMensaje( gIdioma, 8 ));
+        gTiempoAtleta = Double.parseDouble(JOptionPane.showInputDialog(null,gMensajes.mostrarMensaje( gIdioma, 9 )));
     }
 
     /**
